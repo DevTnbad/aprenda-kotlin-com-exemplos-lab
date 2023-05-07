@@ -1,6 +1,6 @@
 enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
-class Usuario(val id: Int, var usuario: String) {
+class Usuario(val usuario: String) {
     override fun toString(): String {
         return usuario
     }
@@ -20,17 +20,17 @@ data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) 
     val inscritos = mutableSetOf<Usuario>()
 
     fun matricular(vararg usuarios: Usuario) {
-    	for (usuario in usuarios) {
-        	inscritos.add(usuario)
+    	for (elemento in usuarios) {
+        	inscritos.add(elemento)
     	}
 	}
 
     fun desmatricular(vararg usuarios: Usuario) {
-        for (usuario in usuarios) {
-            if (inscritos.remove(usuario)) {
-                println("Usuário ${usuario.usuario} foi desmatriculado.")
+        for (elemento in usuarios) {
+            if (inscritos.remove(elemento)) {
+                println("Usuário ${elemento} foi desmatriculado.")
             } else {
-                println("Usuário ${usuario.usuario} não está matriculado nesta formação.")
+                println("Usuário ${elemento} não está matriculado nesta formação.")
             }
         }
     }
@@ -47,11 +47,11 @@ data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) 
 }
 
 fun main() {
-    val usuario1 = Usuario(1, "Toddy")
-    val usuario2 = Usuario(2, "Kiara")
-    val usuario3 = Usuario(3, "Fiu-fiu")
-    val usuario4 = Usuario(4, "Sansao")
-    val usuario5 = Usuario(5, "Nala")
+    val usuario1 = Usuario("Toddy")
+    val usuario2 = Usuario("Kiara")
+    val usuario3 = Usuario("Fiu-fiu")
+    val usuario4 = Usuario("Sansao")
+    val usuario5 = Usuario("Nala")
 
     val conteudo1 = ConteudoEducacional("Introdução à programação", 10, Nivel.BASICO)
     val conteudo2 = ConteudoEducacional("Algoritmos e Logica", 20, Nivel.BASICO)
@@ -70,8 +70,8 @@ fun main() {
     val conteudo15 = ConteudoEducacional("Docker", 10, Nivel.INTERMEDIARIO)    
 
     val formacao1 = Formacao("Front-End", listOf(conteudo1, conteudo4, conteudo6, conteudo7))
-    val formacao2 = Formacao("Back-End", listOf(conteudo1, conteudo2, conteudo3, conteudo8, conteudo9))
-    val formacao3 = Formacao("Full Stack", listOf(conteudo1, conteudo2, conteudo3, conteudo4, conteudo6, conteudo7, conteudo8, conteudo9))
+    val formacao2 = Formacao("Back-End", listOf(conteudo1, conteudo2, conteudo3, conteudo8, conteudo9, conteudo10, conteudo12, conteudo15))
+    val formacao3 = Formacao("Full Stack", listOf(conteudo1, conteudo2, conteudo3, conteudo4, conteudo6, conteudo7, conteudo11, conteudo8, conteudo9))
     val formacao4 = Formacao("Data Analitics", listOf(conteudo2, conteudo3, conteudo5, conteudo13, conteudo14))
     
     formacao1.matricular(usuario1)
@@ -83,13 +83,15 @@ fun main() {
 
     println(formacao1.inscritos)
 
-    formacao1.desmatricular(usuario1) // poderia colocar somente o id
+    formacao1.desmatricular(usuario1) 
+    formacao3.desmatricular(usuario1)
     formacao4.desmatricular(usuario3, usuario4)
       
     println("Formacao1:" + formacao1.inscritos)
     println("Formacao2:" + formacao2.inscritos)
     println("Formacao3:" + formacao3.inscritos)
     println("Formacao4:" + formacao4.inscritos)
+    println("######### Detalhes de nivel #########")
     println("Nivel da formacao 1: " + formacao1.getNivelMajoritario())
     println("Nivel da formacao 2: " + formacao2.getNivelMajoritario())
     println("Nivel da formacao 3: " + formacao3.getNivelMajoritario())
