@@ -1,8 +1,8 @@
 enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
-class Usuario(val usuario: String) {
+class Aluno(val aluno: String) {
     override fun toString(): String {
-        return usuario
+        return aluno
     }
 }
 
@@ -10,23 +10,23 @@ data class ConteudoEducacional(val nome: String, val duracaoDias: Int = 60, val 
 
 
 data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
-    
+
     //######################################################################
     //
     //Testes
     //
     //######################################################################
 
-    val inscritos = mutableSetOf<Usuario>()
+    val inscritos = mutableSetOf<Aluno>()
 
-    fun matricular(vararg usuarios: Usuario) {
-    	for (elemento in usuarios) {
+    fun matricular(vararg alunos: Aluno) {
+    	for (elemento in alunos) {
         	inscritos.add(elemento)
     	}
 	}
 
-    fun desmatricular(vararg usuarios: Usuario) {
-        for (elemento in usuarios) {
+    fun desmatricular(vararg alunos: Aluno) {
+        for (elemento in alunos) {
             if (inscritos.remove(elemento)) {
                 println("Usuário ${elemento} foi desmatriculado.")
             } else {
@@ -46,12 +46,12 @@ data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) 
 }
 
 fun main() {
-    val usuario1 = Usuario("Toddy")
-    val usuario2 = Usuario("Kiara")
-    val usuario3 = Usuario("Fiu-fiu")
-    val usuario4 = Usuario("Sansao")
-    val usuario5 = Usuario("Nala")
-    val usuario6 = Usuario("Luna")
+    val aluno1 = Aluno("Toddy")
+    val aluno2 = Aluno("Kiara")
+    val aluno3 = Aluno("Fiu-fiu")
+    val aluno4 = Aluno("Sansao")
+    val aluno5 = Aluno("Nala")
+    val aluno6 = Aluno("Luna")
 
     val conteudo1 = ConteudoEducacional("Introdução à programação", 10, Nivel.BASICO)
     val conteudo2 = ConteudoEducacional("Algoritmos e Logica", 20, Nivel.BASICO)
@@ -75,20 +75,20 @@ fun main() {
     val formacao4 = Formacao("Data Analitics", listOf(conteudo2, conteudo3, conteudo5, conteudo13, conteudo14))
     val formacao5 = Formacao("Tester", listOf(conteudo14, conteudo1))
     
-    formacao1.matricular(usuario1)
+    formacao1.matricular(aluno1)
    
-    formacao1.matricular(usuario1, usuario2, usuario3, usuario4)
-    formacao2.matricular(usuario1, usuario4)
-    formacao3.matricular(usuario5)
-    formacao4.matricular(usuario2, usuario3, usuario5, usuario1, usuario4)
+    formacao1.matricular(aluno1, aluno2, aluno3, aluno4)
+    formacao2.matricular(aluno1, aluno4)
+    formacao3.matricular(aluno5)
+    formacao4.matricular(aluno2, aluno3, aluno5, aluno1, aluno4)
 
     println(formacao1.inscritos)
 
-    formacao1.desmatricular(usuario1) 
-    formacao3.desmatricular(usuario1)
-    formacao4.desmatricular(usuario3, usuario4)
+    formacao1.desmatricular(aluno1)
+    formacao3.desmatricular(aluno1)
+    formacao4.desmatricular(aluno3, aluno4)
     
-    formacao5.matricular(usuario6)
+    formacao5.matricular(aluno6)
       
     println("Formacao1:" + formacao1.inscritos)
     println("Formacao2:" + formacao2.inscritos)
